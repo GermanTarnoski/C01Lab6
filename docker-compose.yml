@@ -1,5 +1,6 @@
 services:
   backend:
+    image: germantarnoski/quirknotes_backend:latest
     build:
       context: .
       dockerfile: Dockerfile_backend
@@ -10,6 +11,20 @@ services:
       - ENV=Docker
     depends_on:
       - mongodb
+
+  frontend:
+    image: germantarnoski/quirknotes_frontend:latest
+    build:
+      context: .
+      dockerfile: Dockerfile_frontend
+      target: frontend
+    ports:
+      - "3000:3000"
+    environment:
+      - ENV=Docker
+    depends_on:
+      - backend
+
 
   mongodb:
     image: mongo:latest
